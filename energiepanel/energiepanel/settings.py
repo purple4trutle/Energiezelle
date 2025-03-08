@@ -188,7 +188,7 @@ STATIC_URL = '/static/'
 
 # Ensure STATICFILES_DIRS is defined correctly
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Adjust if your static files are in a different folder
+    os.path.join(BASE_DIR, 'energiepanel/static'),  # Adjust if your static files are in a different folder
 ]
 
 # Default primary key field type
