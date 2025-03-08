@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os.path
+import os
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -179,9 +183,13 @@ USE_TZ = True
 # STATIC_ROOT = '/usr/home/tsbegd/public_html/static/'
 
 # Windows TEst Env
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ( os.path.join('staticfiles'), )
+
+# Ensure STATICFILES_DIRS is defined correctly
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Adjust if your static files are in a different folder
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
