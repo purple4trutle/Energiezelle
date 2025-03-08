@@ -29,7 +29,7 @@ SECRET_KEY = 'v#k7)22c&men&mu8urbcg2w7xt$&c9b18isbnwm1w4969&lbe*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','.localhost']
+ALLOWED_HOSTS = ['127.0.0.1','.localhost', 'fathomless-bastion-15298-3587289dadc9.herokuapp.com']
 
 AUTH_USER_MODEL = 'epanel.User'
 
