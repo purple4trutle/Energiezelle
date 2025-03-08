@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons.css' %}">
+    <title>{% block title %}Übersicht{% endblock %}</title>
+    <link href="{% static 'epanel/style.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar_green">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-lightning-charge fg-green"></i></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Übersicht</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>Übersicht</h2><br>
+          <div class="card">
+            <div class="card-header">
+              <b>1.</b> Gebäude Grundangaben {% if not buildingdata %}<span class="badge badge-danger">Fehlt</span>{% endif %}{% if buildingdata %}<span class="badge badge-success">Vollständig</span>{% endif %}
+            </div>
+            <div class="card-body">
+              {% if not buildingdata %}
+                Um fortzufahren müssen sie die Grundangaben zu dem Gebäude eintragen.<br><br>
+                <a class="btn btn-warning" href="/buildingdata/" role="button"><i class="bi bi-pencil-square"></i> Zum Formular</a>
+              {% endif %}
+              {% if buildingdata %}
+                Sie haben ihre Grundangaben zum Gebäude vollständig eingegeben und können mit den Energiedaten nach Jahr fortfahren.
+                <p style="text-align: right;"><a class="btn btn-link" href="/buildingdata/" role="button"><i class="bi bi-pencil-square"></i> Bearbeiten</a></p>
+              {% endif %}
+            </div>
+          </div><br>
+          <div class="card">
+            {% if not buildingdata %}
+              <div class="card-header">
+                <b>2.</b> jährliche Energiedaten <span class="badge badge-warning">Erst Grundangaben ausfüllen</span>
+              </div>
+            {% endif %}
+            {% if buildingdata %}
+              <div class="card-header">
+                <b>2.</b> Energiedaten nach Jahr
+                {% if not yearscomplete %}
+                  {% for year in yearsmissing %}
+                    <span class="badge badge-warning">{{ year }} fehlt</span>
+                  {% endfor %}
+                {% endif %}
+                {% if yearscomplete %}<span class="badge badge-success">Vollständig</span>{% endif %}
+              </div>
+              {% if years %}
+                <ul class="list-group list-group-flush">
+                  {% for year, needed in years.items %}
+                    {% if not needed %}
+                      <li class="list-group-item"> <span class="badge badge-light"><i class="bi bi-check2"></i> {{ year }}</span> &nbsp;&nbsp;-&nbsp;&nbsp;<a href="/add_year/?j={{ year }}" role="button">Bearbeiten</a>  <small>(Erfolgskontrolle)</small></li>
+                    {% else %}
+                      <li class="list-group-item"> <span class="badge badge-success"><i class="bi bi-check2"></i> {{ year }}</span> &nbsp;&nbsp;-&nbsp;&nbsp;<a href="/add_year/?j={{ year }}" role="button">Bearbeiten</a></li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+              <div class="card-body">
+                <p style="text-align: right;"><a class="btn btn-link" href="/add_year/" role="button"><i class="bi bi-plus"></i> Jahr eintragen</a></p>
+              </div>
+            {% endif %}
+          </div>
+          <br>
+          {% if buildingdata and yearscomplete %}
+            <p style="text-align: right;"><a class="btn btn-success" href="/calculation/" role="button"><i class="bi bi-check"></i> Auswerten</a></p>
+          {% else %}
+            <p style="text-align: right;"><a class="btn btn-success disabled" role="button"><i class="bi bi-check"></i> Auswerten</a></p>
+          {% endif %}
+        </div>
+        <div class="col-sm">
+          <div class="card text-white bg-info">
+            <div class="card-header">
+              <i class="bi bi-person-circle"></i> {{ user.get_username }}
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="/accounts/logout/"><i class="bi bi-box-arrow-right"></i> Abmelden</a></li>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="/accounts/password_change/"><i class="bi bi-input-cursor"></i> Passwort ändern</a></li>
+              <div class="card-body">
+                Verbesserungsvorschläge?<br>
+                Wenn Sie Vorschläge für Korrekturen oder Ergänzungen haben, senden Sie uns eine Nachricht.
+              </div>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="mailto:info@itb-institut.de"><i class="bi bi-envelope"></i> Nachricht an Webmaster</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br><br>
+    <!-- Footer -->
+    <div style="position: fixed; bottom: 0; right: 0; text-align: right; background-color: rgba(117,255,0,0.6); padding: 6px; border-top-left-radius: 8px;">  
+      <!-- Copyright -->
+      <div>
+        &nbsp;<a class="text-dark" href="/impressum/">Impressum</a>&nbsp;|&nbsp;<a class="text-dark" href="/datenschutz/">Datenschutzerklärung</a>&nbsp;
+      </div>
+      <!-- Copyright -->
+    </div>
+  </body>
+</html>

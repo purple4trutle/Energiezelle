@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons.css' %}">
+    <title>{% block title %}Startseite{% endblock %}</title>
+    <link href="{% static 'epanel/style.css' %}" rel="stylesheet">
+    <script src="{% static 'cookielaw/js/cookielaw.js' %}"></script>
+  </head>
+  <body>
+    {% load cookielaw_tags %}
+    {% cookielaw_banner %}
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar_green">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-lightning-charge fg-green"></i></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Start</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/signup">Registrieren</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="container">
+      <img src="{% static 'epanel/logoall.jpg' %}" style="max-height: 50px; float: right;"><hr>
+      <h2 style="color: #28a745; font-size: 5vh;"><b>G</b>ebäude<b>E</b>nergie<b>K</b>ennzahlen <b>GEK</b></h2><br>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header">
+              Web-Applikation der 1000 klimaneutralen Gebäude im Landkreis Mainz-Bingen
+            </div>
+            <div class="card-body">
+
+
+              Pilotprojekt -"1000 klimaneutrale Gebäude im Landkreis Mainz-Bingen (1000 knG)"<br><br>
+              Das <b>Pilotprojekt "1000 klimaneutrale Gebäude im Landkreis Mainz-Bingen"</b> soll reproduzierbar aufzeigen, wie kleine Wohnbauten im Bestand klimaneutral gemacht werden können. Das Pilotprojekt ist eine Kooperation:<br><br>
+              <ul>
+                <li>Landkreis Mainz-Bingen, <a href="https://www.mainz-bingen.de/de/Aemter-Abteilungen/bauen-umwelt/Umwelt-und-Energieberatungszentrum/Klimaschutz/Energie/Energie-1000-knG.php">UEBZ</a></li>
+                <li>Transferstelle Bingen, <a href="https://www.tsb-energie.de/projekte/projektdetail/?tx_kwtsbprojekte_projectlist%5Bprojects%5D=36&tx_kwtsbprojekte_projectlist%5Baction%5D=show&cHash=776b567fc8a229f66c5b65deed05d96d">TSB</a></li>
+                <li>Verein „Energieeffektivität Community <a href="https://enefco.eu/">EeC</a>"</li>
+              </ul><br>
+
+              Das Projekt setzt dabei auf bewährte Technologien, die jedoch in der Kombination optimiert werden, um mit dem geringsten Aufwand den größten Nutzen zu erzielen. In einer <b>ersten Phase</b> werden die <b>G</b>ebäude<b>E</b>nergie<b>K</b>ennzahlen <b>GEK</b> erhoben.
+              Damit wird der Ist-Zustand der Gebäude erfasst und anonym mit anderen Gebäuden und mit Zielwerten verglichen. Die Zielwerte werden laufend mit den durch die Maßnahmen erreichten Werten verglichen. Und somit der Lösungsweg ständig optimiert.<br><br>
+
+              <b>Die Ermittlung Ihrer GEK gibt den Nutzern die Möglichkeit:</b><br><br>
+
+              <ul style="background-color: rgba(40, 167, 69, 0.4); ">
+                <li>zur Einschätzung ihrer Verbräuchswerte zum potentiellen Zielwert</li>
+                <li>echte Verbrauchswerte und konkrete Kosten im Vergleich zu sehen</li>
+                <li>den eigenen Fortschritt über Jahre hinweg zu erkennen</li>
+              </ul>
+
+              Damit die <b>G</b>ebäude<b>E</b>nergie<b>K</b>ennzahlen einfach erhoben werden können, ist diese <b>neue WebApplikation</b> entwickelt und programmiert worden.
+              Die Nutzerinnen und Nutzer innerhalb des Landkreises wie darüber hinaus, können dort in anonymisierter Form über die Eintragung weniger Daten, sich selbst mit anderen Nutzern und den Zielwerten vergleichen.<br><br>
+
+              Die GEK vergleichen echte Verbrauchswerte aus den Rechnungen und Kosten für die Energie (Wärme und Strom). Anders als andere Kennwerte oder Daten aus den Energieausweisen sehen Bewohnerinnen und Bewohner im GEK ihre konkreten Kosten im Vergleich.
+              Wer seine Daten für einige Jahre eingibt, erkennt auch seinen eigenen Fortschritt. Jedes vermiedene Kilogramm CO2 hilft.<br><br>
+
+              In Zukunft werden hier auch Einblicke  gegeben, welche Maßnahmen welchen Kosten/Nutzeneffekt haben oder hatten.
+              Darüber hinaus werden Informationen zu ersten sinnvollen Optimierungs- und Sanierungsschritten sowie Tipps zur <b>Energieentschwendung</b> verlinkt.
+
+              Mit der Web Applikation werden Gebäude ausfindig gemacht, welche sich für das <b>Projekt „1000 klimaneutrale Gebäude“</b> eignen.
+
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              Willkommen!
+            </div>
+            <div class="card-body">
+            Um mit der Eingabe der Daten zu beginnen müssen Sie sich registieren:<br><br>
+            <center><a href="/signup" class="btn btn-success" role="button">Account erstellen</a></center>
+            <br>
+            <center><a href="/accounts/login">Ich habe bereits einen Account.</a></center>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br><br>
+    <!-- Footer -->
+    <div style="position: fixed; bottom: 0; right: 0; text-align: right; background-color: rgba(40, 167, 69, 0.6); padding: 6px; border-top-left-radius: 8px;">  
+      <!-- Copyright -->
+      <div>
+        &nbsp;<a class="text-dark" href="/impressum/">Impressum</a>&nbsp;|&nbsp;<a class="text-dark" href="/datenschutz/">Datenschutzerklärung</a>&nbsp;
+      </div>
+      <!-- Copyright -->
+    </div>
+  </body>
+</html>

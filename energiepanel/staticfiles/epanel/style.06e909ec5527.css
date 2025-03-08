@@ -1,0 +1,14 @@
+nav.navbar_green{
+    background: rgb(91,117,0) !important;
+    background: linear-gradient(90deg, rgba(91,117,0,1) 0%, rgba(117,255,0,1) 100%) !important;
+}
+
+div.green{
+    background: rgb(91,117,0) !important;
+    background: linear-gradient(90deg, rgba(91,117,0,1) 0%, rgba(117,255,0,1) 100%) !important;
+}
+
+a.deco-none-white {
+    color:#ffffff !important;
+    text-decoration:none;
+}

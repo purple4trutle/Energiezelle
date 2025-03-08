@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-utils-six = "*"
+django-crispy-forms = "*"
+django-cookie-law = "*"
+svgwrite = "*"
+matplotlib = "*"
+numpy = "*"
+mpld3 = "*"
+fpdf2 = "*"
+cairosvg = "*"
+pillow = "*"
+django-admin-conf-vars = "*"
+django-heroku = "*"
+django-admin-csvexport = "*"
+django-object-actions = "*"
+django-constance = {extras = ["database"], version = "*"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

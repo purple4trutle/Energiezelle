@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons.css' %}">
+    <script src="{% static 'jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <title>{% block title %}Gebäudedaten{% endblock %}</title>
+    <link href="{% static 'epanel/style.css' %}" rel="stylesheet">
+
+    <script>
+        
+        var done = false;
+        var warmwasser_erzeugung_changed = false;
+
+        window.addEventListener('beforeunload', function (e) {
+          if (!done){
+            e.preventDefault();
+            e.returnValue = '';
+          }
+        });
+        
+        $(document).ready(function() {
+
+          $("#buildingdata_form").on("submit", function(e) {
+            done = true;
+            return true;
+          });
+
+          //Logic to show or hide form fields depending on html attributes
+          var all = document.getElementsByTagName("*");
+
+          let doPopovers = []
+
+          for (var i=0, max=all.length; i < max; i++) {
+              let elem = all[i];
+              if (elem.getAttribute("show-id") && elem.getAttribute("show-on")){
+                $("#"+elem.getAttribute("show-id")).css("display", "none");
+                $(elem).on('input', function(e) {
+                  if ($(this).attr("show-on") == $(this).prop('selectedIndex')){
+                    $("#"+$(this).attr("show-id")).css("display", "inline");
+                    $("#"+$(this).attr("show-id")).css("background-color", "#ffd0c9");
+                  }
+                  else{
+                    $("#"+elem.getAttribute("show-id")).css("display", "none");
+                  }
+                });
+              }
+
+              //Wenn JavaScript verfügbar ist, schiebe alle Hints in Popovers
+              if (elem.id.startsWith("hint_id_")){
+                var header_id = elem.id.replace(/hint_id_/i, "id_");
+                doPopovers.push(header_id)
+                //elem2.innerHTML += 
+              }
+
+          }
+
+          doPopovers.forEach(function(id){
+            let text = document.getElementById("hint_" + id).innerHTML;
+            document.getElementById("hint_" + id).remove();
+            var elem2 = $("label[for='"+id+"']")[0].innerHTML += '<button type="button" class="btn btn-link btn-sm" data-toggle="popover" data-content=\''+text+'\'><i class="bi bi-info-circle"></i></button>';
+          });
+
+          //Enable Popovers
+          $("[data-toggle=popover]").popover();
+
+          $('body').on('click', function (e) {
+            $('[data-toggle="popover"]').each(function () {
+                //the 'is' for buttons that trigger popups
+                //the 'has' for icons within a button that triggers a popup
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                }
+            });
+          });
+
+          //Events
+          $("#id_heizwaerme_erzeugung_1").on('change', function() {
+            if (!warmwasser_erzeugung_changed && this.value != "SONSTIGES"){
+              $("#id_warmwasseraufbereitung_1").val(this.value);
+            }
+          });
+
+          $("#id_warmwasseraufbereitung_1").on('change', function() {
+            warmwasser_erzeugung_changed = true;
+          });
+
+        });
+		</script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar_green">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-lightning-charge fg-green"></i></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/overview">Übersicht</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>Gebäude Grundangaben</h2><br>
+          <div class="card">
+            <div class="card-header" id="gebaeudedaten">Gebäudedaten</div>
+              <div class="card-body">
+            {% load crispy_forms_tags %}
+            {% block content %}
+              <form method="post" id="buildingdata_form">
+                {% csrf_token %}
+                  {% for field in form %}
+                    {% if field.field.open_collapse %}
+                      <div id="{{ field.field.collapse_id|add:"_acc"}}">
+                        <div class="card">
+                          <div class="card-header" id="{{ field.field.collapse_id }}">
+                            <h5 class="mb-0">
+                              <button class="btn btn-link collapsed" data-toggle="collapse" aria-expanded="false" data-target="#{{ field.field.collapse_id|add:"_collapse"}}" type="button">
+                                <i class="bi bi-plus-square"></i> {{ field.field.collapse_title }}
+                              </button>
+                            </h5>
+                          </div>
+                          <div id="{{ field.field.collapse_id|add:"_collapse"}}" class="collapse" data-parent="#{{ field.field.collapse_id|add:"_acc"}}">
+                            <div class="card-body">
+                    {% endif %}
+                    <p>
+                      {{ field|as_crispy_field }}
+                    </p>
+                    {% if field.field.after %}
+                      </div>
+                    </div>
+                    <br><br>
+                    <div class="card">
+                      <div class="card-header" id="{{ field.field.after_id }}">{{ field.field.after }}</div>
+                      <div class="card-body">
+                    {% endif %}
+                    {% if field.field.close_collapse %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                  <button type="submit" class="btn btn-success">Abschicken</button>
+                </form>
+            {% endblock %}
+              </div>
+            </div>
+        </div>
+        <div class="col-sm">
+          <div class="card text-white bg-info" style=" position: sticky; top: 10px;">
+            <div class="card-header">
+              <i class="bi bi-info-circle"></i> Übersicht
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="#gebaeudedaten">Gebäudedaten</a></li>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="#sanierung">Sanierung Gebäudehülle</a></li>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="#waerrmeerzeugung">Wärmeerzeugung und Abgabe</a></li>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="#brauchwarmwasser">Brauchwarmwasser</a></li>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="#eigenstromproduktion">Eigenstromproduktion & Stromspeicher</a></li>
+              <li class="list-group-item text-white bg-info"><a class="deco-none-white" href="#investitionen">Geplante Investitionen</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br><br>
+    <!-- Footer -->
+    <div style="position: fixed; bottom: 0; right: 0; text-align: right; background-color: rgba(117,255,0,0.6); padding: 6px; border-top-left-radius: 8px;">  
+      <!-- Copyright -->
+      <div>
+        &nbsp;<a class="text-dark" href="/impressum/">Impressum</a>&nbsp;|&nbsp;<a class="text-dark" href="/datenschutz/">Datenschutzerklärung</a>&nbsp;
+      </div>
+      <!-- Copyright -->
+    </div>
+  </body>
+</html>
