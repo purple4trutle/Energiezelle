@@ -184,7 +184,7 @@ USE_TZ = True
 
 # Windows TEst Env
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = 'energiepanel/static/'
 
 # Ensure STATICFILES_DIRS is defined correctly
 STATICFILES_DIRS = [
