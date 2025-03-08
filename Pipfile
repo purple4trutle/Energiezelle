@@ -20,6 +20,7 @@ django-heroku = "*"
 django-admin-csvexport = "*"
 django-object-actions = "*"
 django-constance = {extras = ["database"], version = "*"}
+crispy-bootstrap4 = "*"
 
 [dev-packages]
 
