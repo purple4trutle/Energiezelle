@@ -183,8 +183,8 @@ USE_TZ = True
 # STATIC_ROOT = '/usr/home/tsbegd/public_html/static/'
 
 # Windows TEst Env
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'energiepanel/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'energiepanel/staticfiles')
+STATIC_URL = '/static/'
 
 # Ensure STATICFILES_DIRS is defined correctly
 STATICFILES_DIRS = [
