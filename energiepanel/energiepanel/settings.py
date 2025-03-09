@@ -182,14 +182,11 @@ USE_TZ = True
 # STATIC_URL = '/static/'
 # STATIC_ROOT = '/usr/home/tsbegd/public_html/static/'
 
-# Windows TEst Env
-STATIC_ROOT = os.path.join(BASE_DIR, 'energiepanel/staticfiles')
+# Windows Test Env
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
+STATICFILES_DIRS = ( os.path.join('staticfiles'), )
 
-# Ensure STATICFILES_DIRS is defined correctly
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'energiepanel/static'),  # Adjust if your static files are in a different folder
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
